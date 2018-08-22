@@ -46,16 +46,17 @@ public class Cartas : MonoBehaviour
 
         int index = Random.Range(0, naipes.Count);
         int index2 = Random.Range(0, naipes.Count);
-     
+
         naipeCarta1 = naipes[index];
         naipeCarta2 = naipes[index2];
-       
+
 
         carta1.text = numeroCarta1.ToString() + "\n" + naipeCarta1;
         carta2.text = numeroCarta2.ToString() + "\n" + naipeCarta2;
     }
 
-    public void NaipeTrunfo(){
+    public void NaipeTrunfo()
+    {
         int index = Random.Range(0, naipes.Count);
 
         naipeTrunfo = naipes[index];
@@ -79,19 +80,18 @@ public class Cartas : MonoBehaviour
 
     }
 
-    void Update(){
-        if(Input.GetMouseButtonDown(0)) {
-            Debug.Log("CLIQUEI!!");
-
+    void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
             Carta();
-            NaipeTrunfo();
 
             Comparacao();
             AtualizarPlacar();
         }
-            
+
     }
-   
+
 
     // adiciona o valor no placar do jogador 1
     public void AdicionaPlacar1(int newplacar1Value)
@@ -107,20 +107,44 @@ public class Cartas : MonoBehaviour
         AtualizarPlacar();
     }
 
-    public void AtualizarPlacar (){
+    public void AtualizarPlacar()
+    {
 
-        placarText.text = "Placar" + "\n" + "Jogador 1: " + placar1 + "\n" + "Jogador 2: " + placar2 ;
+        placarText.text = "Placar" + "\n" + "Jogador 1: " + placar1 + "\n" + "Jogador 2: " + placar2;
     }
 
     void Comparacao()
     {
-        if (numeroCarta1 > numeroCarta2)
+        if (naipeCarta1 == naipeTrunfo && naipeCarta2 != naipeTrunfo)
         {
             AdicionaPlacar1(10);
         }
-
-        else if (numeroCarta1 < numeroCarta2){
+        if (naipeCarta2 == naipeTrunfo && naipeCarta1 != naipeTrunfo)
+        {
             AdicionaPlacar2(10);
         }
+
+        if (naipeCarta1 == naipeTrunfo && naipeCarta2 == naipeTrunfo)
+        {
+            if (numeroCarta1 > numeroCarta2)
+            {
+                AdicionaPlacar1(10);
+            }
+
+            else if (numeroCarta1 < numeroCarta2)
+            {
+                AdicionaPlacar2(10);
+            }
+        }
+        else if (numeroCarta1 > numeroCarta2)
+            {
+                AdicionaPlacar1(10);
+            }
+
+        else if (numeroCarta1 < numeroCarta2)
+            {
+                AdicionaPlacar2(10);
+            }
+        
     }
 }
