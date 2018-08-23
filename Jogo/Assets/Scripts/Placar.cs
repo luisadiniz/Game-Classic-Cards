@@ -39,4 +39,9 @@ public class Placar : MonoBehaviour
     {
         placarText.text = "Placar" + "\n" + "Jogador 1: " + placar1 + "\n" + "Jogador 2: " + placar2;
     }
+
+    public void MudarPosicaoPlacar (){
+        placarText.transform.position = new Vector3(410, 200, 0);
+
+    }
 }

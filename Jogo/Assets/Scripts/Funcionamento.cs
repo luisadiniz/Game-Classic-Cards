@@ -13,7 +13,12 @@ public class Funcionamento : MonoBehaviour {
     public void Start()
     {
         cartasScript.LimparGameText();
-        cartasScript.Carta();
+
+        cartasScript.Baralho();
+
+        cartasScript.ContadorBaralhoInicial();
+
+        cartasScript.PegarCarta();
         cartasScript.NaipeTrunfo();
 
         placarScript.PlacarInicial();
@@ -22,15 +27,19 @@ public class Funcionamento : MonoBehaviour {
         placarScript.AtualizarPlacar();
 
         cartasScript.ZerarContadorClique();
+
+        cartasScript.Baralho();
     }
 
     public void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
-            cartasScript.Carta();
+            cartasScript.PegarCarta();
 
             cartasScript.Comparacao();
+
+            cartasScript.AtualizaContagemBaralho();
             placarScript.AtualizarPlacar();
 
             cartasScript.AdicionarClique();       

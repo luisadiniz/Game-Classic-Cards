@@ -522,6 +522,7 @@ MonoBehaviour:
   carta2: {fileID: 1799915323}
   fundocarta1: {fileID: 375379802}
   fundocarta2: {fileID: 632265926}
+  baralhoText: {fileID: 1888313973}
   fundoTrunfo: {fileID: 655304349}
   gameOverText: {fileID: 380139033}
   maxTurns: 5
@@ -1295,7 +1296,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 316, y: -20}
+  m_AnchoredPosition: {x: 316, y: 3.2}
   m_SizeDelta: {x: 101.6, y: 137.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1888313973
@@ -1324,7 +1325,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 2
     m_MaxSize: 40
-    m_Alignment: 1
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
