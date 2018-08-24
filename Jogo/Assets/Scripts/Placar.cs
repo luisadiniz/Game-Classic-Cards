@@ -7,6 +7,9 @@ public class Placar : MonoBehaviour
 {
     [SerializeField]
     private Text placarText;
+    [SerializeField]
+    private Text placarFinalText;
+
     private int placar1;
     private int placar2;
 
@@ -40,8 +43,12 @@ public class Placar : MonoBehaviour
         placarText.text = "Placar" + "\n" + "Jogador 1: " + placar1 + "\n" + "Jogador 2: " + placar2;
     }
 
-    public void MudarPosicaoPlacar (){
-        placarText.transform.position = new Vector3(410, 200, 0);
-
+    public void PlacarFinal(){
+        placarFinalText.text = placarText.text;
     }
+
+    public void DestruirTextPlacar(){
+        Destroy(placarText);
+    }
+
 }

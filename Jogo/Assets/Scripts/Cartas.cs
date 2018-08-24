@@ -30,9 +30,11 @@ public class Cartas : MonoBehaviour
     private GameObject fundoTrunfo;
 
     private int contadorClique;
-    [SerializeField]
-    private Text gameOverText;
+
     private bool gameOver;
+
+    [SerializeField]
+    private GameObject popUpPanel;
 
 
     [SerializeField]
@@ -51,6 +53,12 @@ public class Cartas : MonoBehaviour
 
     List<Carta> baralho;
 
+    public bool GameOver1
+    {
+        get { return gameOver; }
+        set { gameOver = value; }
+    }
+
     public void Baralho()
     {
         baralho = new List<Carta>();
@@ -68,15 +76,17 @@ public class Cartas : MonoBehaviour
         }
     }
 
-    public void PegarCarta(){
+
+    public void PegarCarta()
+    {
 
         int indexBaralho1 = Random.Range(0, baralho.Count);
         cartaPlayer1 = baralho[indexBaralho1];
+        baralho.Remove(cartaPlayer1);
+
 
         int indexBaralho2 = Random.Range(0, baralho.Count);
         cartaPlayer2 = baralho[indexBaralho2];
-
-        baralho.Remove(cartaPlayer1);
         baralho.Remove(cartaPlayer2);
 
         carta1.text = cartaPlayer1.numeroCarta.ToString() + "\n" + cartaPlayer1.naipeCarta.ToString();
@@ -84,12 +94,14 @@ public class Cartas : MonoBehaviour
 
     }
 
-    public void ContadorBaralhoInicial(){
+    public void ContadorBaralhoInicial()
+    {
         baralhoText.text = "52";
     }
 
 
-    public void AtualizaContagemBaralho(){
+    public void AtualizaContagemBaralho()
+    {
         baralhoText.text = baralho.Count.ToString();
     }
 
@@ -113,13 +125,11 @@ public class Cartas : MonoBehaviour
             if (cartaPlayer1.numeroCarta > cartaPlayer2.numeroCarta)
             {
                 placarScript.AdicionaPlacar(PlayerId.PLAYER_1);
-                Debug.Log("Player 1 ganhou");
             }
 
             else if (cartaPlayer1.numeroCarta < cartaPlayer2.numeroCarta)
             {
                 placarScript.AdicionaPlacar(PlayerId.PLAYER_2);
-                Debug.Log("Player 1 ganhou");
             }
         }
         else if (cartaPlayer1.naipeCarta == naipeTrunfo && cartaPlayer2.naipeCarta != naipeTrunfo)
@@ -138,39 +148,66 @@ public class Cartas : MonoBehaviour
 
         else if (cartaPlayer1.numeroCarta < cartaPlayer2.numeroCarta)
         {
-            placarScript.AdicionaPlacar(PlayerId.PLAYER_2);        
+            placarScript.AdicionaPlacar(PlayerId.PLAYER_2);
         }
 
-        if(baralho.Count == 0){
+        if (baralho.Count == 0)
+        {
             GameOver();
         }
     }
 
-    public void GameOver(){
-        gameOverText.text = "Game Over!";
+    public void GameOver()
+    {
+        GameOver1 = true;
 
-        Destroy(carta1);
-        Destroy(carta2);
-        Destroy(fundocarta1);
-        Destroy(fundocarta2);
-        Destroy(naipeTrunfoText);
-        Destroy(fundoTrunfo);
+        carta1.enabled = false;
+        carta2.enabled = false;
 
-        placarScript.MudarPosicaoPlacar();
+        fundocarta1.SetActive(false);
+        fundocarta2.SetActive(false);
+
+        naipeTrunfoText.enabled = false;
+
+        fundoTrunfo.SetActive(false);
+
+        placarScript.DestruirTextPlacar();
+
+        placarScript.PlacarFinal();
+
+        popUpPanel.SetActive(true);
+
     }
 
-    public void LimparGameText(){
-        gameOverText.text = "";
-        gameOver = false;
 
+
+    public void EsconderPopUp()
+    {
+        popUpPanel.SetActive(false);
     }
+
 
     public void ZerarContadorClique()
-	{
+    {
         contadorClique = 0;
-	}
+    }
 
-    public void AdicionarClique(){
+    public void AdicionarClique()
+    {
         contadorClique++;
+    }
+
+    public void TabuleiroOn()
+    {
+        carta1.enabled = true;
+        carta2.enabled = true;
+
+        fundocarta1.SetActive(true);
+        fundocarta2.SetActive(true);
+
+        naipeTrunfoText.enabled = true;
+
+        fundoTrunfo.SetActive(true);
+
     }
 }

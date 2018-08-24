@@ -10,9 +10,11 @@ public class Funcionamento : MonoBehaviour {
     [SerializeField]
     Placar placarScript;
 
+
     public void Start()
     {
-        cartasScript.LimparGameText();
+        cartasScript.EsconderPopUp();
+        cartasScript.TabuleiroOn();
 
         cartasScript.Baralho();
 
@@ -28,12 +30,11 @@ public class Funcionamento : MonoBehaviour {
 
         cartasScript.ZerarContadorClique();
 
-        cartasScript.Baralho();
     }
 
     public void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && !cartasScript.GameOver1)
         {
             cartasScript.PegarCarta();
 
