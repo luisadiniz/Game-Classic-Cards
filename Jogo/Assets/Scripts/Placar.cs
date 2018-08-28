@@ -40,7 +40,7 @@ public class Placar : MonoBehaviour
 
     public void AtualizarPlacar()
     {
-        placarText.text = "Placar" + "\n" + "Jogador 1: " + placar1 + "\n" + "Jogador 2: " + placar2;
+        placarText.text = "Placar" + "\n" + "\n" + "Jogador 1: " + placar1 + "\n" + "\n" + "Jogador 2: " + placar2;
     }
 
     public void PlacarFinal(){

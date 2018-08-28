@@ -28,6 +28,8 @@ public class Cartas : MonoBehaviour
     private string naipeTrunfo;
     [SerializeField]
     private GameObject fundoTrunfo;
+    [SerializeField]
+    private GameObject fundoPlacar;
 
     private int contadorClique;
 
@@ -45,6 +47,18 @@ public class Cartas : MonoBehaviour
     List<string> naipes = new List<string>
     {"Ouros","Copas","Espadas","Paus"
     };
+
+    [SerializeField]
+    private Image imagemCarta1;
+    [SerializeField]
+    private Image imagemCarta2;
+    [SerializeField]
+    private Image imagemTrunfo;
+
+
+    [SerializeField]
+    List<Sprite> imagemNaipes;
+        
 
     List<int> numero = new List<int>
     {
@@ -89,10 +103,46 @@ public class Cartas : MonoBehaviour
         cartaPlayer2 = baralho[indexBaralho2];
         baralho.Remove(cartaPlayer2);
 
-        carta1.text = cartaPlayer1.numeroCarta.ToString() + "\n" + cartaPlayer1.naipeCarta.ToString();
-        carta2.text = cartaPlayer2.numeroCarta.ToString() + "\n" + cartaPlayer2.naipeCarta.ToString();
+        if (cartaPlayer1.naipeCarta == naipes[0])
+        {
+            imagemCarta1.sprite = imagemNaipes[0];
+        }
+        else if (cartaPlayer1.naipeCarta == naipes[1])
+        {
+            imagemCarta1.sprite = imagemNaipes[1];
+        }
+        else if (cartaPlayer1.naipeCarta == naipes[2])
+        {
+            imagemCarta1.sprite = imagemNaipes[2];
+        }
+        else if (cartaPlayer1.naipeCarta == naipes[3])
+        {
+            imagemCarta1.sprite = imagemNaipes[3];
+        }
+
+        if (cartaPlayer2.naipeCarta == naipes[0])
+        {
+            imagemCarta2.sprite = imagemNaipes[0];
+        }
+        else if (cartaPlayer2.naipeCarta == naipes[1])
+        {
+            imagemCarta2.sprite = imagemNaipes[1];
+        }
+        else if (cartaPlayer2.naipeCarta == naipes[2])
+        {
+            imagemCarta2.sprite = imagemNaipes[2];
+        }
+        else if (cartaPlayer2.naipeCarta == naipes[3])
+        {
+            imagemCarta2.sprite = imagemNaipes[3];
+        }
+
+
+        carta1.text = cartaPlayer1.numeroCarta.ToString();
+        carta2.text = cartaPlayer2.numeroCarta.ToString();
 
     }
+
 
     public void ContadorBaralhoInicial()
     {
@@ -111,8 +161,24 @@ public class Cartas : MonoBehaviour
         int index = Random.Range(0, naipes.Count);
 
         naipeTrunfo = naipes[index];
-
         naipeTrunfoText.text = naipeTrunfo;
+
+        if (naipeTrunfo == naipes[0])
+        {
+            imagemTrunfo.sprite = imagemNaipes[0];
+        }
+        else if (naipeTrunfo == naipes[1])
+        {
+            imagemTrunfo.sprite = imagemNaipes[1];
+        }
+        else if (naipeTrunfo  == naipes[2])
+        {
+            imagemTrunfo.sprite = imagemNaipes[2];
+        }
+        else if (naipeTrunfo == naipes[3])
+        {
+            imagemTrunfo.sprite = imagemNaipes[3];
+        }
 
     }
 
@@ -170,12 +236,19 @@ public class Cartas : MonoBehaviour
         naipeTrunfoText.enabled = false;
 
         fundoTrunfo.SetActive(false);
+        fundoPlacar.SetActive(false);
 
         placarScript.DestruirTextPlacar();
 
         placarScript.PlacarFinal();
 
         popUpPanel.SetActive(true);
+
+        // desabilitar naipe do trundo e da carta
+        imagemTrunfo.gameObject.SetActive(false);
+        imagemCarta1.gameObject.SetActive(false);
+        imagemCarta2.gameObject.SetActive(false);
+
 
     }
 
