@@ -1,2 +1,4 @@
 # Jogo-Super-Trunfo
-Jogo de cartas desenvolvido em C# para o Unity 3D
+Jogo de cartas desenvolvido em C# usando o Unity 3D
+
+Jogo para mobile, especificamente Android.
