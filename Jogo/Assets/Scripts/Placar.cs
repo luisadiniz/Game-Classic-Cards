@@ -6,7 +6,9 @@ using UnityEngine.UI;
 public class Placar : MonoBehaviour
 {
     [SerializeField]
-    private Text placarText;
+    private Text placarTextP1;
+    [SerializeField]
+    private Text placarTextP2;
     [SerializeField]
     private Text placarFinalText;
 
@@ -22,6 +24,9 @@ public class Placar : MonoBehaviour
     public void PlacarInicial(){
         placar1 = 0;
         placar2 = 0;
+
+        placarTextP1.text = "Placar: " + placar1;
+        placarTextP2.text = "Placar: " + placar2;
     }
 
     public void AdicionaPlacar(PlayerId playerId)
@@ -36,19 +41,24 @@ public class Placar : MonoBehaviour
         }
 
         AtualizarPlacar();
+
     }
 
     public void AtualizarPlacar()
     {
-        placarText.text = "Placar" + "\n" + "\n" + "Jogador 1: " + placar1 + "\n" + "\n" + "Jogador 2: " + placar2;
+        placarTextP1.text = "Placar: " + placar1;
+        placarTextP2.text = "Placar: " + placar2;
+
     }
+
 
     public void PlacarFinal(){
-        placarFinalText.text = placarText.text;
+        placarFinalText.text = "Placar" + "\n" + "\n" + "Jogador 1: " + placar1 + "\n" + "\n" + "Jogador 2: " + placar2;
     }
 
-    public void DestruirTextPlacar(){
-        Destroy(placarText);
+    public void LimparTextoPlacar()
+    {
+        placarTextP1.enabled = false;
+        placarTextP2.enabled = false;
     }
-
 }

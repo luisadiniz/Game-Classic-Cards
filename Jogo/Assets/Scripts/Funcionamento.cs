@@ -10,9 +10,13 @@ public class Funcionamento : MonoBehaviour {
     [SerializeField]
     Placar placarScript;
 
+    private bool cartasViradas;
+
 
     public void Start()
     {
+        cartasViradas = true;
+
         cartasScript.EsconderPopUp();
         cartasScript.TabuleiroOn();
 
@@ -20,13 +24,12 @@ public class Funcionamento : MonoBehaviour {
 
         cartasScript.ContadorBaralhoInicial();
 
-        cartasScript.PegarCarta();
+        cartasScript.LimparTextodaCarta();
+        cartasScript.LimparTextoVitoria();
+
         cartasScript.NaipeTrunfo();
 
         placarScript.PlacarInicial();
-
-        cartasScript.Comparacao();
-        placarScript.AtualizarPlacar();
 
         cartasScript.ZerarContadorClique();
 
@@ -36,14 +39,40 @@ public class Funcionamento : MonoBehaviour {
     {
         if (Input.GetMouseButtonDown(0) && !cartasScript.GameOver1)
         {
-            cartasScript.PegarCarta();
+            if (cartasViradas)
+            {
+                cartasScript.TrocarFundodaCarta();
+                cartasScript.AparecerTextodaCarta();
 
-            cartasScript.Comparacao();
+                cartasScript.PegarCarta();
 
-            cartasScript.AtualizaContagemBaralho();
-            placarScript.AtualizarPlacar();
+                cartasScript.Comparacao();
 
-            cartasScript.AdicionarClique();       
+                cartasScript.AtualizaContagemBaralho();
+                placarScript.AtualizarPlacar();
+
+                cartasScript.AdicionarClique();
+
+                CartasViradasFalso();
+
+            }
+            else {
+                cartasScript.TrocarFundoparaOriginal();
+                cartasScript.LimparTextodaCarta();
+                cartasScript.LimparTextoVitoria();
+
+                CartasViradasVerdadeiro();
+            }
         }
+    }
+
+    public void CartasViradasFalso()
+    {
+        cartasViradas = false;
+    }
+
+    public void CartasViradasVerdadeiro()
+    {
+        cartasViradas = true;
     }
 }

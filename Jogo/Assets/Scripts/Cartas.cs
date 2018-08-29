@@ -13,13 +13,21 @@ public class Cartas : MonoBehaviour
     private Text carta1;
     [SerializeField]
     private Text carta2;
+
     [SerializeField]
-    private GameObject fundocarta1;
+    private Image fundocarta1;
     [SerializeField]
-    private GameObject fundocarta2;
+    private Image fundocarta2;
+
+    [SerializeField]
+    private Sprite fundoBranco;
+    [SerializeField]
+    private Sprite fundoAzul;
 
     [SerializeField]
     private Text baralhoText;
+    [SerializeField]
+    private Text playerVencedor;
 
 
     Carta cartaPlayer1;
@@ -29,7 +37,7 @@ public class Cartas : MonoBehaviour
     [SerializeField]
     private GameObject fundoTrunfo;
     [SerializeField]
-    private GameObject fundoPlacar;
+    private GameObject fundoBaralho;
 
     private int contadorClique;
 
@@ -137,7 +145,6 @@ public class Cartas : MonoBehaviour
             imagemCarta2.sprite = imagemNaipes[3];
         }
 
-
         carta1.text = cartaPlayer1.numeroCarta.ToString();
         carta2.text = cartaPlayer2.numeroCarta.ToString();
 
@@ -191,30 +198,42 @@ public class Cartas : MonoBehaviour
             if (cartaPlayer1.numeroCarta > cartaPlayer2.numeroCarta)
             {
                 placarScript.AdicionaPlacar(PlayerId.PLAYER_1);
+
+                playerVencedor.text = "Player 1 Venceu!";
             }
 
             else if (cartaPlayer1.numeroCarta < cartaPlayer2.numeroCarta)
             {
                 placarScript.AdicionaPlacar(PlayerId.PLAYER_2);
+
+                playerVencedor.text = "Player 2 Venceu!";
             }
         }
         else if (cartaPlayer1.naipeCarta == naipeTrunfo && cartaPlayer2.naipeCarta != naipeTrunfo)
         {
             placarScript.AdicionaPlacar(PlayerId.PLAYER_1);
+
+            playerVencedor.text = "Player 1 Venceu!";
         }
         else if (cartaPlayer2.naipeCarta == naipeTrunfo && cartaPlayer1.naipeCarta != naipeTrunfo)
         {
             placarScript.AdicionaPlacar(PlayerId.PLAYER_2);
+
+            playerVencedor.text = "Player 2 Venceu!";
         }
 
         else if (cartaPlayer1.numeroCarta > cartaPlayer2.numeroCarta)
         {
             placarScript.AdicionaPlacar(PlayerId.PLAYER_1);
+
+            playerVencedor.text = "Player 1 Venceu!";
         }
 
         else if (cartaPlayer1.numeroCarta < cartaPlayer2.numeroCarta)
         {
             placarScript.AdicionaPlacar(PlayerId.PLAYER_2);
+
+            playerVencedor.text = "Player 2 Venceu!";
         }
 
         if (baralho.Count == 0)
@@ -230,21 +249,23 @@ public class Cartas : MonoBehaviour
         carta1.enabled = false;
         carta2.enabled = false;
 
-        fundocarta1.SetActive(false);
-        fundocarta2.SetActive(false);
+        fundocarta1.enabled = false;
+        fundocarta2.enabled = false;
+        fundoBaralho.SetActive(false);
 
         naipeTrunfoText.enabled = false;
+        baralhoText.enabled = false;
+        playerVencedor.enabled = false;
+
 
         fundoTrunfo.SetActive(false);
-        fundoPlacar.SetActive(false);
 
-        placarScript.DestruirTextPlacar();
+        placarScript.LimparTextoPlacar();
 
         placarScript.PlacarFinal();
 
         popUpPanel.SetActive(true);
 
-        // desabilitar naipe do trundo e da carta
         imagemTrunfo.gameObject.SetActive(false);
         imagemCarta1.gameObject.SetActive(false);
         imagemCarta2.gameObject.SetActive(false);
@@ -252,6 +273,14 @@ public class Cartas : MonoBehaviour
 
     }
 
+    public void TrocarFundodaCarta(){
+        fundocarta1.sprite = fundoBranco;
+        fundocarta2.sprite = fundoBranco;
+    }
+    public void TrocarFundoparaOriginal(){
+        fundocarta1.sprite = fundoAzul;
+        fundocarta2.sprite = fundoAzul;
+    }
 
 
     public void EsconderPopUp()
@@ -270,17 +299,36 @@ public class Cartas : MonoBehaviour
         contadorClique++;
     }
 
-    public void TabuleiroOn()
+    public void LimparTextodaCarta()
     {
+        imagemCarta1.enabled = false;
+        imagemCarta2.enabled = false;
+
+        carta1.enabled = false;
+        carta2.enabled = false;
+    }
+
+    public void AparecerTextodaCarta(){
         carta1.enabled = true;
         carta2.enabled = true;
 
-        fundocarta1.SetActive(true);
-        fundocarta2.SetActive(true);
+        imagemCarta1.enabled = true;
+        imagemCarta2.enabled = true;
+    }
 
+    public void TabuleiroOn()
+    {
         naipeTrunfoText.enabled = true;
 
         fundoTrunfo.SetActive(true);
 
     }
+
+    public void LimparTextoVitoria()
+    {
+        playerVencedor.text = "";
+    }
+
+
+
 }
