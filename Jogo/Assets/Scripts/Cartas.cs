@@ -7,17 +7,24 @@ using UnityEngine.UI;
 public class Cartas : MonoBehaviour
 {
     [SerializeField]
-    private Text naipeTrunfoText;
+    private Text carta1P1;
+    [SerializeField]
+    private Text carta1P2;
+    [SerializeField]
+    private Text carta2P1;
+    [SerializeField]
+    private Text carta2P2;
+    [SerializeField]
+    private Text carta3P1;
+    [SerializeField]
+    private Text carta3P2;
+    [SerializeField]
+    private Text carta4P1;
+    [SerializeField]
+    private Text carta4P2;
 
     [SerializeField]
-    private Text carta1;
-    [SerializeField]
-    private Text carta2;
-
-    [SerializeField]
-    private Image fundocarta1;
-    [SerializeField]
-    private Image fundocarta2;
+    List<Text> textosCartas;
 
     [SerializeField]
     private Sprite fundoBranco;
@@ -33,15 +40,23 @@ public class Cartas : MonoBehaviour
     Carta cartaPlayer1;
     Carta cartaPlayer2;
 
-    private string naipeTrunfo;
-    [SerializeField]
-    private GameObject fundoTrunfo;
+    Carta cartaP1Copas;
+    Carta cartaP2Copas;
+
+    Carta cartaP1Ouros;
+    Carta cartaP2Ouros;
+
+    Carta cartaP1Espadas;
+    Carta cartaP2Espadas;
+
+    Carta cartaP1Paus;
+    Carta cartaP2Paus;
+
+
     [SerializeField]
     private GameObject fundoBaralho;
 
     private int contadorClique;
-
-    private bool gameOver;
 
     [SerializeField]
     private GameObject popUpPanel;
@@ -49,6 +64,7 @@ public class Cartas : MonoBehaviour
 
     [SerializeField]
     Placar placarScript;
+    [SerializeField]
     Funcionamento funcionamentoScript;
 
 
@@ -56,16 +72,15 @@ public class Cartas : MonoBehaviour
     {"Ouros","Copas","Espadas","Paus"
     };
 
+   
     [SerializeField]
-    private Image imagemCarta1;
-    [SerializeField]
-    private Image imagemCarta2;
-    [SerializeField]
-    private Image imagemTrunfo;
-
+    List<Image> fundoCartas;
 
     [SerializeField]
-    List<Sprite> imagemNaipes;
+    List<Sprite> spriteNaipes;
+
+    [SerializeField]
+    List<Image> imagemNaipes;
         
 
     List<int> numero = new List<int>
@@ -73,80 +88,99 @@ public class Cartas : MonoBehaviour
         1,2,3,4,5,6,7,8,9,10,11,12,13
     };
 
-    List<Carta> baralho;
+    List<Carta> ouros;
+    List<Carta> copas;
+    List<Carta> espadas;
+    List<Carta> paus;
 
-    public bool GameOver1
-    {
-        get { return gameOver; }
-        set { gameOver = value; }
-    }
-
+   
     public void Baralho()
     {
-        baralho = new List<Carta>();
-
-        for (int i = 0; i < naipes.Count; i++)
+        ouros = new List<Carta>();
+        for (int i = 0; i < numero.Count; i++)
         {
-            for (int j = 0; j < numero.Count; j++)
-            {
-                Carta novaCarta = new Carta();
-                novaCarta.naipeCarta = naipes[i];
-                novaCarta.numeroCarta = numero[j];
+            Carta novaCartaOuros = new Carta();
+            novaCartaOuros.naipeCarta = naipes[0];
+            novaCartaOuros.numeroCarta = numero[i];
 
-                baralho.Add(novaCarta);
-            }
+            ouros.Add(novaCartaOuros);
         }
+
+        copas = new List<Carta>();
+        for (int i = 0; i < numero.Count; i++)
+        {
+            Carta novaCartaCopas = new Carta();
+            novaCartaCopas.naipeCarta = naipes[1];
+            novaCartaCopas.numeroCarta = numero[i];
+
+            copas.Add(novaCartaCopas);
+        }
+
+        espadas = new List<Carta>();
+        for (int i = 0; i < numero.Count; i++)
+        {
+            Carta novaCartaEspadas = new Carta();
+            novaCartaEspadas.naipeCarta = naipes[2];
+            novaCartaEspadas.numeroCarta = numero[i];
+
+            espadas.Add(novaCartaEspadas);
+        }
+
+        paus = new List<Carta>();
+        for (int i = 0; i < numero.Count; i++)
+        {
+            Carta novaCartaPaus = new Carta();
+            novaCartaPaus.naipeCarta = naipes[3];
+            novaCartaPaus.numeroCarta = numero[i];
+
+            paus.Add(novaCartaPaus);
+        }
+
     }
 
 
     public void PegarCarta()
     {
+        int indexCopas1 = Random.Range(0, copas.Count);
+        cartaP1Copas = copas[indexCopas1];
+        copas.Remove(cartaP1Copas);
+        int indexCopas2 = Random.Range(0, copas.Count);
+        cartaP2Copas = copas[indexCopas2];
+        copas.Remove(cartaP2Copas);
 
-        int indexBaralho1 = Random.Range(0, baralho.Count);
-        cartaPlayer1 = baralho[indexBaralho1];
-        baralho.Remove(cartaPlayer1);
+        int indexOuros1 = Random.Range(0, ouros.Count);
+        cartaP1Ouros = ouros[indexOuros1];
+        ouros.Remove(cartaP1Ouros);
+        int indexOuros2 = Random.Range(0, ouros.Count);
+        cartaP2Ouros = ouros[indexOuros2];
+        ouros.Remove(cartaP2Ouros);
 
+        int indexEspadas1 = Random.Range(0, espadas.Count);
+        cartaP1Espadas = espadas[indexEspadas1];
+        espadas.Remove(cartaP1Espadas);
+        int indexEspadas2 = Random.Range(0, espadas.Count);
+        cartaP2Espadas = espadas[indexEspadas2];
+        espadas.Remove(cartaP2Espadas);
 
-        int indexBaralho2 = Random.Range(0, baralho.Count);
-        cartaPlayer2 = baralho[indexBaralho2];
-        baralho.Remove(cartaPlayer2);
+        int indexPaus1 = Random.Range(0, paus.Count);
+        cartaP1Paus = paus[indexPaus1];
+        paus.Remove(cartaP1Paus);
+        int indexPaus2 = Random.Range(0, paus.Count);
+        cartaP2Paus = paus[indexPaus2];
+        paus.Remove(cartaP2Paus);
 
-        if (cartaPlayer1.naipeCarta == naipes[0])
-        {
-            imagemCarta1.sprite = imagemNaipes[0];
-        }
-        else if (cartaPlayer1.naipeCarta == naipes[1])
-        {
-            imagemCarta1.sprite = imagemNaipes[1];
-        }
-        else if (cartaPlayer1.naipeCarta == naipes[2])
-        {
-            imagemCarta1.sprite = imagemNaipes[2];
-        }
-        else if (cartaPlayer1.naipeCarta == naipes[3])
-        {
-            imagemCarta1.sprite = imagemNaipes[3];
-        }
+       
+        carta1P1.text = cartaP1Copas.numeroCarta.ToString();
+        carta1P2.text = cartaP2Copas.numeroCarta.ToString();
 
-        if (cartaPlayer2.naipeCarta == naipes[0])
-        {
-            imagemCarta2.sprite = imagemNaipes[0];
-        }
-        else if (cartaPlayer2.naipeCarta == naipes[1])
-        {
-            imagemCarta2.sprite = imagemNaipes[1];
-        }
-        else if (cartaPlayer2.naipeCarta == naipes[2])
-        {
-            imagemCarta2.sprite = imagemNaipes[2];
-        }
-        else if (cartaPlayer2.naipeCarta == naipes[3])
-        {
-            imagemCarta2.sprite = imagemNaipes[3];
-        }
+        carta2P1.text = cartaP1Ouros.numeroCarta.ToString();
+        carta2P2.text = cartaP2Ouros.numeroCarta.ToString();
 
-        carta1.text = cartaPlayer1.numeroCarta.ToString();
-        carta2.text = cartaPlayer2.numeroCarta.ToString();
+        carta3P1.text = cartaP1Espadas.numeroCarta.ToString();
+        carta3P2.text = cartaP2Espadas.numeroCarta.ToString();
+
+        carta4P1.text = cartaP1Paus.numeroCarta.ToString();
+        carta4P2.text = cartaP2Paus.numeroCarta.ToString();
 
     }
 
@@ -159,106 +193,216 @@ public class Cartas : MonoBehaviour
 
     public void AtualizaContagemBaralho()
     {
-        baralhoText.text = baralho.Count.ToString();
+        baralhoText.text = (copas.Count + espadas.Count + ouros.Count + paus.Count).ToString();
     }
 
 
-    public void NaipeTrunfo()
+    public void EscolhaOuros()
     {
-        int index = Random.Range(0, naipes.Count);
-
-        naipeTrunfo = naipes[index];
-        naipeTrunfoText.text = naipeTrunfo;
-
-        if (naipeTrunfo == naipes[0])
+        if (funcionamentoScript.etapa == Funcionamento.EtapaJogo.Meio)
         {
-            imagemTrunfo.sprite = imagemNaipes[0];
-        }
-        else if (naipeTrunfo == naipes[1])
-        {
-            imagemTrunfo.sprite = imagemNaipes[1];
-        }
-        else if (naipeTrunfo  == naipes[2])
-        {
-            imagemTrunfo.sprite = imagemNaipes[2];
-        }
-        else if (naipeTrunfo == naipes[3])
-        {
-            imagemTrunfo.sprite = imagemNaipes[3];
-        }
+            fundoCartas[0].sprite = fundoAzul;
+            fundoCartas[2].sprite = fundoAzul;
+            fundoCartas[3].sprite = fundoAzul;
 
-    }
+            fundoCartas[4].sprite = fundoAzul;
+            fundoCartas[6].sprite = fundoAzul;
+            fundoCartas[7].sprite = fundoAzul;
 
-
-    public void Comparacao()
-    {
-
-        if (cartaPlayer1.naipeCarta == naipeTrunfo && cartaPlayer2.naipeCarta == naipeTrunfo)
-        {
-            if (cartaPlayer1.numeroCarta > cartaPlayer2.numeroCarta)
+            if (cartaP1Ouros.numeroCarta > cartaP2Ouros.numeroCarta)
             {
                 placarScript.AdicionaPlacar(PlayerId.PLAYER_1);
 
                 playerVencedor.text = "Player 1 Venceu!";
-            }
 
-            else if (cartaPlayer1.numeroCarta < cartaPlayer2.numeroCarta)
+                funcionamentoScript.jogador = Funcionamento.JogadorRodada.Player1;
+
+                PlayerqueComeca();
+            }
+            else if (cartaP1Ouros.numeroCarta < cartaP2Ouros.numeroCarta)
             {
                 placarScript.AdicionaPlacar(PlayerId.PLAYER_2);
 
                 playerVencedor.text = "Player 2 Venceu!";
+
+                funcionamentoScript.jogador = Funcionamento.JogadorRodada.Player2;
+
+                PlayerqueComeca();
             }
-        }
-        else if (cartaPlayer1.naipeCarta == naipeTrunfo && cartaPlayer2.naipeCarta != naipeTrunfo)
-        {
-            placarScript.AdicionaPlacar(PlayerId.PLAYER_1);
+            if ((copas.Count + espadas.Count + ouros.Count + paus.Count) == 4)
+            {
+                GameOver();
+            }
 
-            playerVencedor.text = "Player 1 Venceu!";
-        }
-        else if (cartaPlayer2.naipeCarta == naipeTrunfo && cartaPlayer1.naipeCarta != naipeTrunfo)
-        {
-            placarScript.AdicionaPlacar(PlayerId.PLAYER_2);
+            else { funcionamentoScript.etapa = Funcionamento.EtapaJogo.Comeco; }
 
-            playerVencedor.text = "Player 2 Venceu!";
         }
 
-        else if (cartaPlayer1.numeroCarta > cartaPlayer2.numeroCarta)
+    }
+
+
+    public void EscolhaCopas()
+    {
+        if (funcionamentoScript.etapa == Funcionamento.EtapaJogo.Meio)
         {
-            placarScript.AdicionaPlacar(PlayerId.PLAYER_1);
+            fundoCartas[1].sprite = fundoAzul;
+            fundoCartas[2].sprite = fundoAzul;
+            fundoCartas[3].sprite = fundoAzul;
 
-            playerVencedor.text = "Player 1 Venceu!";
-        }
+            fundoCartas[5].sprite = fundoAzul;
+            fundoCartas[6].sprite = fundoAzul;
+            fundoCartas[7].sprite = fundoAzul;
 
-        else if (cartaPlayer1.numeroCarta < cartaPlayer2.numeroCarta)
-        {
-            placarScript.AdicionaPlacar(PlayerId.PLAYER_2);
+            if (cartaP1Copas.numeroCarta > cartaP2Copas.numeroCarta)
+            {
+                placarScript.AdicionaPlacar(PlayerId.PLAYER_1);
 
-            playerVencedor.text = "Player 2 Venceu!";
-        }
+                playerVencedor.text = "Player 1 Venceu!";
 
-        if (baralho.Count == 0)
-        {
-            GameOver();
+                funcionamentoScript.jogador = Funcionamento.JogadorRodada.Player1;
+
+                PlayerqueComeca();
+            }
+            else if (cartaP1Copas.numeroCarta < cartaP2Copas.numeroCarta)
+            {
+                placarScript.AdicionaPlacar(PlayerId.PLAYER_2);
+
+                playerVencedor.text = "Player 2 Venceu!";
+
+                funcionamentoScript.jogador = Funcionamento.JogadorRodada.Player2;
+
+                PlayerqueComeca();
+            }
+            if ((copas.Count + espadas.Count + ouros.Count + paus.Count) == 4)
+            {
+                GameOver();
+            }
+
+            else { funcionamentoScript.etapa = Funcionamento.EtapaJogo.Comeco; }
+
         }
     }
 
+    public void EscolhaEspadas()
+    {
+        if (funcionamentoScript.etapa == Funcionamento.EtapaJogo.Meio)
+        {
+            fundoCartas[0].sprite = fundoAzul;
+            fundoCartas[1].sprite = fundoAzul;
+            fundoCartas[3].sprite = fundoAzul;
+
+            fundoCartas[4].sprite = fundoAzul;
+            fundoCartas[5].sprite = fundoAzul;
+            fundoCartas[7].sprite = fundoAzul;
+
+            if (cartaP1Espadas.numeroCarta > cartaP2Espadas.numeroCarta)
+            {
+                placarScript.AdicionaPlacar(PlayerId.PLAYER_1);
+
+                playerVencedor.text = "Player 1 Venceu!";
+
+                funcionamentoScript.jogador = Funcionamento.JogadorRodada.Player1;
+
+                PlayerqueComeca();
+            }
+            else if (cartaP1Espadas.numeroCarta < cartaP2Espadas.numeroCarta)
+            {
+                placarScript.AdicionaPlacar(PlayerId.PLAYER_2);
+
+                playerVencedor.text = "Player 2 Venceu!";
+
+                funcionamentoScript.jogador = Funcionamento.JogadorRodada.Player2;
+
+                PlayerqueComeca();
+            }
+            if ((copas.Count + espadas.Count + ouros.Count + paus.Count) == 4)
+            {
+                GameOver();
+            }
+
+            else { funcionamentoScript.etapa = Funcionamento.EtapaJogo.Comeco; }
+
+        }
+
+    }
+
+    public void EscolhaPaus()
+    {
+        if (funcionamentoScript.etapa == Funcionamento.EtapaJogo.Meio)
+        {
+            fundoCartas[1].sprite = fundoAzul;
+            fundoCartas[2].sprite = fundoAzul;
+            fundoCartas[0].sprite = fundoAzul;
+
+            fundoCartas[5].sprite = fundoAzul;
+            fundoCartas[6].sprite = fundoAzul;
+            fundoCartas[4].sprite = fundoAzul;
+
+            if (cartaP1Paus.numeroCarta > cartaP2Paus.numeroCarta)
+            {
+                placarScript.AdicionaPlacar(PlayerId.PLAYER_1);
+
+                playerVencedor.text = "Player 1 Venceu!";
+
+                funcionamentoScript.jogador = Funcionamento.JogadorRodada.Player1;
+
+                PlayerqueComeca();
+            }
+            else if (cartaP1Paus.numeroCarta < cartaP2Paus.numeroCarta)
+            {
+                placarScript.AdicionaPlacar(PlayerId.PLAYER_2);
+
+                playerVencedor.text = "Player 2 Venceu!";
+
+                funcionamentoScript.jogador = Funcionamento.JogadorRodada.Player2;
+
+                PlayerqueComeca();
+            }
+
+            if ((copas.Count + espadas.Count + ouros.Count + paus.Count) == 4)
+            {
+                GameOver();
+            }
+
+            else { funcionamentoScript.etapa = Funcionamento.EtapaJogo.Comeco; }
+
+        }
+    }
+
+    public void PlayerqueComeca()
+    {
+        if (funcionamentoScript.jogador == Funcionamento.JogadorRodada.Player1)
+        {
+            fundoCartas[4].GetComponent<Button>().enabled = false;
+            fundoCartas[5].GetComponent<Button>().enabled = false;
+            fundoCartas[6].GetComponent<Button>().enabled = false;
+            fundoCartas[7].GetComponent<Button>().enabled = false;
+        }
+       
+        else if (funcionamentoScript.jogador == Funcionamento.JogadorRodada.Player2)
+            {
+                fundoCartas[0].GetComponent<Button>().enabled = false;
+                fundoCartas[1].GetComponent<Button>().enabled = false;
+                fundoCartas[2].GetComponent<Button>().enabled = false;
+                fundoCartas[3].GetComponent<Button>().enabled = false;
+            }
+        }
+
+
     public void GameOver()
     {
-        GameOver1 = true;
+        funcionamentoScript.etapa = Funcionamento.EtapaJogo.Fim;
 
-        carta1.enabled = false;
-        carta2.enabled = false;
+        LimparTextodaCarta();
 
-        fundocarta1.enabled = false;
-        fundocarta2.enabled = false;
-        fundoBaralho.SetActive(false);
+        for (int i = 0; i < fundoCartas.Capacity; i++)
+        {
+            fundoCartas[i].enabled = false;
+        }
 
-        naipeTrunfoText.enabled = false;
         baralhoText.enabled = false;
         playerVencedor.enabled = false;
 
-
-        fundoTrunfo.SetActive(false);
 
         placarScript.LimparTextoPlacar();
 
@@ -266,20 +410,23 @@ public class Cartas : MonoBehaviour
 
         popUpPanel.SetActive(true);
 
-        imagemTrunfo.gameObject.SetActive(false);
-        imagemCarta1.gameObject.SetActive(false);
-        imagemCarta2.gameObject.SetActive(false);
-
-
     }
+
 
     public void TrocarFundodaCarta(){
-        fundocarta1.sprite = fundoBranco;
-        fundocarta2.sprite = fundoBranco;
+
+        for (int i = 0; i < fundoCartas.Count; i++)
+        {
+            fundoCartas[i].sprite = fundoBranco;
+        }
     }
+
     public void TrocarFundoparaOriginal(){
-        fundocarta1.sprite = fundoAzul;
-        fundocarta2.sprite = fundoAzul;
+
+        for (int i = 0; i < fundoCartas.Count; i++)
+        {
+            fundoCartas[i].sprite = fundoAzul;
+        }
     }
 
 
@@ -301,28 +448,38 @@ public class Cartas : MonoBehaviour
 
     public void LimparTextodaCarta()
     {
-        imagemCarta1.enabled = false;
-        imagemCarta2.enabled = false;
+        for (int i = 0; i < textosCartas.Count; i++)
+        {
+            textosCartas[i].enabled = false;
+        }
 
-        carta1.enabled = false;
-        carta2.enabled = false;
+        for(int i = 0; i < imagemNaipes.Count; i++)
+        {
+            imagemNaipes[i].enabled = false;
+        }
     }
 
     public void AparecerTextodaCarta(){
-        carta1.enabled = true;
-        carta2.enabled = true;
 
-        imagemCarta1.enabled = true;
-        imagemCarta2.enabled = true;
-    }
+        for (int i = 0; i < textosCartas.Count; i++)
+        {
+            textosCartas[i].enabled = true;
+        }
 
-    public void TabuleiroOn()
-    {
-        naipeTrunfoText.enabled = true;
-
-        fundoTrunfo.SetActive(true);
+        for (int i = 0; i < imagemNaipes.Count; i++)
+        {
+            imagemNaipes[i].enabled = true;
+        }
 
     }
+
+    public void AparecerImagemFundo(){
+        for (int i = 0; i < fundoCartas.Count; i++)
+        {
+            fundoCartas[i].enabled = true;
+        }
+    }
+
 
     public void LimparTextoVitoria()
     {

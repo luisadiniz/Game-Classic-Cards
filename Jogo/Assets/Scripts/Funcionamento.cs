@@ -10,24 +10,26 @@ public class Funcionamento : MonoBehaviour {
     [SerializeField]
     Placar placarScript;
 
-    private bool cartasViradas;
+    public enum EtapaJogo { Comeco, Meio, Fim };
+    public EtapaJogo etapa;
+
+    public enum JogadorRodada {Player1, Player2}
+    public JogadorRodada jogador;
 
 
     public void Start()
     {
-        cartasViradas = true;
+        etapa = EtapaJogo.Comeco;
 
         cartasScript.EsconderPopUp();
-        cartasScript.TabuleiroOn();
-
         cartasScript.Baralho();
 
         cartasScript.ContadorBaralhoInicial();
 
+        cartasScript.AparecerImagemFundo();
+
         cartasScript.LimparTextodaCarta();
         cartasScript.LimparTextoVitoria();
-
-        cartasScript.NaipeTrunfo();
 
         placarScript.PlacarInicial();
 
@@ -35,44 +37,24 @@ public class Funcionamento : MonoBehaviour {
 
     }
 
+
+
     public void Update()
     {
-        if (Input.GetMouseButtonDown(0) && !cartasScript.GameOver1)
+        if (Input.GetMouseButtonDown(0) && etapa == EtapaJogo.Comeco)
         {
-            if (cartasViradas)
-            {
-                cartasScript.TrocarFundodaCarta();
-                cartasScript.AparecerTextodaCarta();
+            cartasScript.TrocarFundodaCarta();
+            cartasScript.AparecerTextodaCarta();
 
-                cartasScript.PegarCarta();
+            cartasScript.PegarCarta();
 
-                cartasScript.Comparacao();
+            cartasScript.AtualizaContagemBaralho();
+            placarScript.AtualizarPlacar();
 
-                cartasScript.AtualizaContagemBaralho();
-                placarScript.AtualizarPlacar();
+            cartasScript.AdicionarClique();
 
-                cartasScript.AdicionarClique();
+            etapa = EtapaJogo.Meio;
 
-                CartasViradasFalso();
-
-            }
-            else {
-                cartasScript.TrocarFundoparaOriginal();
-                cartasScript.LimparTextodaCarta();
-                cartasScript.LimparTextoVitoria();
-
-                CartasViradasVerdadeiro();
-            }
         }
-    }
-
-    public void CartasViradasFalso()
-    {
-        cartasViradas = false;
-    }
-
-    public void CartasViradasVerdadeiro()
-    {
-        cartasViradas = true;
     }
 }
