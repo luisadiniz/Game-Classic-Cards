@@ -22,15 +22,14 @@ public class Funcionamento : MonoBehaviour {
         etapa = EtapaJogo.Comeco;
 
         cartasScript.EsconderPopUp();
-        cartasScript.Baralho();
+        cartasScript.CriarBaralho();
 
         cartasScript.ContadorBaralhoInicial();
 
         cartasScript.AparecerImagemFundo();
+        cartasScript.TextoDaCarta(false);
 
-        cartasScript.LimparTextodaCarta();
         cartasScript.LimparTextoVitoria();
-
         placarScript.PlacarInicial();
 
         cartasScript.ZerarContadorClique();
@@ -43,15 +42,17 @@ public class Funcionamento : MonoBehaviour {
     {
         if (Input.GetMouseButtonDown(0) && etapa == EtapaJogo.Comeco)
         {
-            cartasScript.TrocarFundodaCarta();
-            cartasScript.AparecerTextodaCarta();
+            cartasScript.TrocarFundoDaCarta(cartasScript.fundoBranco);
+            cartasScript.TextoDaCarta(true);
 
-            cartasScript.PegarCarta();
+            cartasScript.DistribuirCartas();
 
             cartasScript.AtualizaContagemBaralho();
             placarScript.AtualizarPlacar();
 
             cartasScript.AdicionarClique();
+
+            cartasScript.CartasViradas();
 
             etapa = EtapaJogo.Meio;
 
