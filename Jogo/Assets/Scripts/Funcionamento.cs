@@ -26,8 +26,7 @@ public class Funcionamento : MonoBehaviour {
 
         cartasScript.ContadorBaralhoInicial();
 
-        cartasScript.AparecerImagemFundo();
-        cartasScript.TextoDaCarta(false);
+        cartasScript.CartasViradas(true);
 
         cartasScript.LimparTextoVitoria();
         placarScript.PlacarInicial();
@@ -42,8 +41,8 @@ public class Funcionamento : MonoBehaviour {
     {
         if (Input.GetMouseButtonDown(0) && etapa == EtapaJogo.Comeco)
         {
-            cartasScript.TrocarFundoDaCarta(cartasScript.fundoBranco);
-            cartasScript.TextoDaCarta(true);
+            
+            cartasScript.CartasViradas(false);
 
             cartasScript.DistribuirCartas();
 
@@ -51,8 +50,6 @@ public class Funcionamento : MonoBehaviour {
             placarScript.AtualizarPlacar();
 
             cartasScript.AdicionarClique();
-
-            cartasScript.CartasViradas();
 
             etapa = EtapaJogo.Meio;
 

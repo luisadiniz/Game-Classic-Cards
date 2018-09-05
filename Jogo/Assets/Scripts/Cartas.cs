@@ -7,31 +7,6 @@ using UnityEngine.UI;
 public class Cartas : MonoBehaviour
 {
     [SerializeField]
-    private Text carta1P1;
-    [SerializeField]
-    private Text carta1P2;
-    [SerializeField]
-    private Text carta2P1;
-    [SerializeField]
-    private Text carta2P2;
-    [SerializeField]
-    private Text carta3P1;
-    [SerializeField]
-    private Text carta3P2;
-    [SerializeField]
-    private Text carta4P1;
-    [SerializeField]
-    private Text carta4P2;
-
-    [SerializeField]
-    List<Text> textosCartas;
-
-    [SerializeField]
-    public Sprite fundoBranco;
-    [SerializeField]
-    public Sprite fundoAzul;
-
-    [SerializeField]
     private Text baralhoText;
     [SerializeField]
     private Text playerVencedor;
@@ -52,13 +27,7 @@ public class Cartas : MonoBehaviour
     Funcionamento funcionamentoScript;
 
     [SerializeField]
-    List<Image> fundoCartas;
-
-    [SerializeField]
-    List<Sprite> spriteNaipes;
-
-    [SerializeField]
-    List<Image> imagemNaipes;
+    public List<CartasVisual> cartasVisuais = new List<CartasVisual>();
 
 
     List<string> naipes = new List<string>
@@ -107,17 +76,16 @@ public class Cartas : MonoBehaviour
         DistribuirMao(maoPlayer1);
         DistribuirMao(maoPlayer2);
 
-        carta1P1.text = maoPlayer1[naipes[0]].numeroCarta.ToString();
-        carta1P2.text = maoPlayer2[naipes[0]].numeroCarta.ToString();
+        cartasVisuais[0].MudarTextoCarta(maoPlayer1[naipes[0]].numeroCarta.ToString());
+        cartasVisuais[1].MudarTextoCarta(maoPlayer1[naipes[1]].numeroCarta.ToString());
+        cartasVisuais[2].MudarTextoCarta(maoPlayer1[naipes[2]].numeroCarta.ToString());
+        cartasVisuais[3].MudarTextoCarta(maoPlayer1[naipes[3]].numeroCarta.ToString());
 
-        carta2P1.text = maoPlayer1[naipes[1]].numeroCarta.ToString();
-        carta2P2.text = maoPlayer2[naipes[1]].numeroCarta.ToString();
+        cartasVisuais[4].MudarTextoCarta(maoPlayer2[naipes[0]].numeroCarta.ToString());
+        cartasVisuais[5].MudarTextoCarta(maoPlayer2[naipes[1]].numeroCarta.ToString());
+        cartasVisuais[6].MudarTextoCarta(maoPlayer2[naipes[2]].numeroCarta.ToString());
+        cartasVisuais[7].MudarTextoCarta(maoPlayer2[naipes[3]].numeroCarta.ToString());
 
-        carta3P1.text = maoPlayer1[naipes[2]].numeroCarta.ToString();
-        carta3P2.text = maoPlayer2[naipes[2]].numeroCarta.ToString();
-
-        carta4P1.text = maoPlayer1[naipes[3]].numeroCarta.ToString();
-        carta4P2.text = maoPlayer2[naipes[3]].numeroCarta.ToString();
 
     }
 
@@ -161,115 +129,44 @@ public class Cartas : MonoBehaviour
         return contadorCartas;
     }
 
-    public void EscolhaCopas()
+    public void EscolhaDasCartas(string naipe)
     {
         if (funcionamentoScript.etapa == Funcionamento.EtapaJogo.Meio)
         {
-            fundoCartas[1].sprite = fundoAzul;
-            fundoCartas[2].sprite = fundoAzul;
-            fundoCartas[3].sprite = fundoAzul;
+            CartasViradas(true);
 
-            fundoCartas[5].sprite = fundoAzul;
-            fundoCartas[6].sprite = fundoAzul;
-            fundoCartas[7].sprite = fundoAzul;
+            if (naipe == "Copas")
+            {
+                cartasVisuais[0].VirarFundoCarta(false);
+                cartasVisuais[4].VirarFundoCarta(false);
 
-            fundoCartas[0].sprite = fundoBranco;
-            fundoCartas[4].sprite = fundoBranco;
+            }
 
-            TextoDaCarta(false);
+            if (naipe == "Ouros")
+            {
+                cartasVisuais[1].VirarFundoCarta(false);
+                cartasVisuais[5].VirarFundoCarta(false);
+            }
 
-            imagemNaipes[0].enabled = true;
-            imagemNaipes[4].enabled = true;
+            if (naipe == "Espadas")
+            {
+               
+                cartasVisuais[2].VirarFundoCarta(false);
+                cartasVisuais[6].VirarFundoCarta(false);
 
-            textosCartas[0].enabled = true;
-            textosCartas[4].enabled = true;
+            }
 
-            Comparacao("Copas");
-        }
-    }
+            if (naipe == "Paus")
+            {
+                cartasVisuais[3].VirarFundoCarta(false);
+                cartasVisuais[7].VirarFundoCarta(false);
+            }
 
-    public void EscolhaOuros()
-    {
-        if (funcionamentoScript.etapa == Funcionamento.EtapaJogo.Meio)
-        {
-            fundoCartas[0].sprite = fundoAzul;
-            fundoCartas[2].sprite = fundoAzul;
-            fundoCartas[3].sprite = fundoAzul;
-
-            fundoCartas[4].sprite = fundoAzul;
-            fundoCartas[6].sprite = fundoAzul;
-            fundoCartas[7].sprite = fundoAzul;
-
-            fundoCartas[1].sprite = fundoBranco;
-            fundoCartas[5].sprite = fundoBranco;
-
-            TextoDaCarta(false);
-
-            imagemNaipes[1].enabled = true;
-            imagemNaipes[5].enabled = true;
-
-            textosCartas[1].enabled = true;
-            textosCartas[5].enabled = true;
-
-            Comparacao("Ouros");
+            Comparacao(naipe);
         }
 
     }
 
-    public void EscolhaEspadas()
-    {
-        if (funcionamentoScript.etapa == Funcionamento.EtapaJogo.Meio)
-        {
-            fundoCartas[0].sprite = fundoAzul;
-            fundoCartas[1].sprite = fundoAzul;
-            fundoCartas[3].sprite = fundoAzul;
-
-            fundoCartas[4].sprite = fundoAzul;
-            fundoCartas[5].sprite = fundoAzul;
-            fundoCartas[7].sprite = fundoAzul;
-
-            TextoDaCarta(false);
-
-            fundoCartas[2].sprite = fundoBranco;
-            fundoCartas[6].sprite = fundoBranco;
-
-            imagemNaipes[2].enabled = true;
-            imagemNaipes[6].enabled = true;
-
-            textosCartas[2].enabled = true;
-            textosCartas[6].enabled = true;
-
-            Comparacao("Espadas");
-        }
-
-    }
-
-    public void EscolhaPaus()
-    {
-        if (funcionamentoScript.etapa == Funcionamento.EtapaJogo.Meio)
-        {
-            fundoCartas[1].sprite = fundoAzul;
-            fundoCartas[2].sprite = fundoAzul;
-            fundoCartas[0].sprite = fundoAzul;
-
-            fundoCartas[5].sprite = fundoAzul;
-            fundoCartas[6].sprite = fundoAzul;
-            fundoCartas[4].sprite = fundoAzul;
-
-            TextoDaCarta(false);
-
-            fundoCartas[3].sprite = fundoBranco;
-            fundoCartas[7].sprite = fundoBranco;
-
-            imagemNaipes[3].enabled = true;
-            imagemNaipes[7].enabled = true;
-
-            textosCartas[3].enabled = true;
-            textosCartas[7].enabled = true;
-
-            Comparacao("Paus");
-        }
-    }
 
     public void Comparacao(string naipe)
     {
@@ -308,15 +205,14 @@ public class Cartas : MonoBehaviour
     public void PlayerqueComeca()
     {
 
-        for (int i = 0; i < fundoCartas.Count/2; i++)
+        for (int i = 0; i < cartasVisuais.Count/2; i++)
         {
-            fundoCartas[i].GetComponent<Button>().enabled = funcionamentoScript.jogador == Funcionamento.JogadorRodada.Player1;
-
+            cartasVisuais[i].fundoDaCarta.GetComponent<Button>().enabled = funcionamentoScript.jogador == Funcionamento.JogadorRodada.Player1;
         }
 
-        for (int i = fundoCartas.Count/2; i < fundoCartas.Count; i++)
+        for (int i = cartasVisuais.Count/2; i < cartasVisuais.Count; i++)
         {
-            fundoCartas[i].GetComponent<Button>().enabled = funcionamentoScript.jogador == Funcionamento.JogadorRodada.Player2;
+            cartasVisuais[i].fundoDaCarta.GetComponent<Button>().enabled = funcionamentoScript.jogador == Funcionamento.JogadorRodada.Player2;
         }
         
     }
@@ -326,43 +222,21 @@ public class Cartas : MonoBehaviour
     {
         funcionamentoScript.etapa = Funcionamento.EtapaJogo.Fim;
 
-        TextoDaCarta(false);
-
-        for (int i = 0; i < fundoCartas.Count; i++)
+        for (int i = 0; i < cartasVisuais.Count; i++)
         {
-            fundoCartas[i].enabled = false;
+            cartasVisuais[i].gameObject.SetActive(false);
         }
+
+
 
         baralhoText.enabled = false;
         playerVencedor.enabled = false;
 
-
         placarScript.LimparTextoPlacar();
-
         placarScript.PlacarFinal();
 
         popUpPanel.SetActive(true);
 
-    }
-
-
-
-    public void TrocarFundoDaCarta( Sprite fundo )
-    {
-
-        for (int i = 0; i < fundoCartas.Count; i++)
-        {
-            fundoCartas[i].sprite = fundo;
-        }
-    }
-
-    public void TrocarFundoparaOriginal()
-    {
-
-        for (int i = 0; i < fundoCartas.Count; i++)
-        {
-            fundoCartas[i].sprite = fundoAzul;
-        }
     }
 
 
@@ -382,60 +256,22 @@ public class Cartas : MonoBehaviour
         contadorClique++;
     }
 
-    public void TextoDaCarta(bool atividade)
-    {
-        for (int i = 0; i < textosCartas.Count; i++)
-        {
-            textosCartas[i].enabled = atividade;
-        }
-
-        for (int i = 0; i < imagemNaipes.Count; i++)
-        {
-            imagemNaipes[i].enabled = atividade;
-        }
-    }
-
-
-    public void AparecerImagemFundo()
-    {
-        for (int i = 0; i < fundoCartas.Count; i++)
-        {
-            fundoCartas[i].enabled = true;
-        }
-    }
-
 
     public void LimparTextoVitoria()
     {
         playerVencedor.text = "";
     }
 
-    public void CartasViradas()
+  
+
+    public void CartasViradas(bool virarOuNao)
     {
-        if (funcionamentoScript.jogador == Funcionamento.JogadorRodada.Player1)
+       for (int i = 0; i < cartasVisuais.Count; i++)
         {
-            for (int i = fundoCartas.Count / 2; i < fundoCartas.Count; i++)
-            {
-                textosCartas[i].enabled = false;
-
-                fundoCartas[i].sprite = fundoAzul;
-
-                imagemNaipes[i].enabled = false;
-
-            }
-        }
-
-        else if (funcionamentoScript.jogador == Funcionamento.JogadorRodada.Player2)
-        {
-            for (int i = 0; i < fundoCartas.Count / 2; i++)
-            {
-                textosCartas[i].enabled = false;
-
-                fundoCartas[i].sprite = fundoAzul;
-
-                imagemNaipes[i].enabled = false;
-            }
+            cartasVisuais[i].VirarFundoCarta(virarOuNao);
         }
     }
+
+       
 
 }
