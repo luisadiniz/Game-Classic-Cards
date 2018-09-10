@@ -189,6 +189,7 @@ public class Cartas : MonoBehaviour
             funcionamentoScript.jogador = Funcionamento.JogadorRodada.Player2;
 
             PlayerqueComeca();
+
         }
 
         if ( NumeroDeCartas() == 4)
@@ -226,8 +227,6 @@ public class Cartas : MonoBehaviour
         {
             cartasVisuais[i].gameObject.SetActive(false);
         }
-
-
 
         baralhoText.enabled = false;
         playerVencedor.enabled = false;
@@ -269,6 +268,32 @@ public class Cartas : MonoBehaviour
        for (int i = 0; i < cartasVisuais.Count; i++)
         {
             cartasVisuais[i].VirarFundoCarta(virarOuNao);
+        }
+    }
+
+    public void AnimarCartas(){
+        for (int i = 0; i < cartasVisuais.Count; i++)
+        {
+            cartasVisuais[i].PlayAnimation();
+        }
+    }
+
+    public void CartasPlayerRivalViradas()
+    {
+        if (funcionamentoScript.jogador == Funcionamento.JogadorRodada.Player2)
+        {
+            for (int i = 0; i < cartasVisuais.Count / 2; i++)
+            {
+                cartasVisuais[i].VirarFundoCarta(true);
+            }
+        }
+
+        if (funcionamentoScript.jogador == Funcionamento.JogadorRodada.Player1)
+        {
+            for (int i = cartasVisuais.Count / 2; i < cartasVisuais.Count; i++)
+            {
+                cartasVisuais[i].VirarFundoCarta(true);
+            }
         }
     }
 

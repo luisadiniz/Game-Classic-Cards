@@ -14,22 +14,23 @@ public class CartasVisual : MonoBehaviour{
     public Sprite fundoBranco;
     [SerializeField]
     public Sprite fundoAzul;
+
+    [SerializeField]
+    private Animator virarCartas;
+
+
       
     public void VirarFundoCarta(bool virarOuNao)
     {
 
         if (virarOuNao) 
         { 
-            fundoDaCarta.sprite = fundoAzul;
-            imagemDoNaipe.enabled = false;
-            textoDaCarta.enabled = false;
+            virarCartas.SetBool("Virar", false);
         }
 
         else 
         { 
-            fundoDaCarta.sprite = fundoBranco;
-            imagemDoNaipe.enabled = true;
-            textoDaCarta.enabled = true;
+            virarCartas.SetBool("Virar", true);
         }
 
     }
@@ -39,5 +40,8 @@ public class CartasVisual : MonoBehaviour{
         textoDaCarta.text = textoVisualDaCarta; 
     }
 
+    public void PlayAnimation(){
+        virarCartas.SetBool("Virar", true);
+    }
 
 }

@@ -36,14 +36,15 @@ public class Funcionamento : MonoBehaviour {
     }
 
 
-
     public void Update()
     {
         if (Input.GetMouseButtonDown(0) && etapa == EtapaJogo.Comeco)
         {
-            
             cartasScript.CartasViradas(false);
 
+            cartasScript.AnimarCartas();
+
+            cartasScript.CartasPlayerRivalViradas();
             cartasScript.DistribuirCartas();
 
             cartasScript.AtualizaContagemBaralho();
